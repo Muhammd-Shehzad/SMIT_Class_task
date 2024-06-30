@@ -1,15 +1,17 @@
 import 'package:animated_rating_stars/animated_rating_stars.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:review_page/screen1.dart';
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({super.key});
+  ReviewPage({super.key});
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
+  TextEditingController reviewController = TextEditingController();
+  String review = '';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -90,29 +92,58 @@ class _ReviewPageState extends State<ReviewPage> {
               SizedBox(
                 height: 6,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text('Write a Comment'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text('Max 250 Words'),
+                  ),
+                ],
+              ),
               Padding(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(10),
                 child: TextField(
+                  controller: reviewController,
+                  onChanged: (value) {
+                    review = value;
+                  },
                   maxLines: 7,
+                  autofocus: true,
+                  maxLength: 250,
+                  textAlign: TextAlign.start,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: 'Write your review here',
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
-              Container(
-                height: 50,
-                width: 380,
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                  child: Text(
-                    'SUBMIT',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700),
+              SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  print('Review Button Pressed $review');
+                },
+                child: Container(
+                  height: 50,
+                  width: 380,
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                    child: Text(
+                      'Submit Review',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
               ),
